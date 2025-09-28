@@ -53,7 +53,7 @@
     let smoothedFaceLandmarks = null, camera;
     let smoothedFacePoints = {};
 
-    // ✅ Your product direct image link
+    // ✅ Product direct image link
     const PRODUCT_SRC = "https://drive.google.com/thumbnail?id=1-CngLL7cSgZiYwuX_g5owGN2S0ZtMtb3&sz=w1000";
 
     async function loadImage(src) {
@@ -123,6 +123,19 @@
         ctx.drawImage(necklaceImg, smoothedFacePoints.neck.x-w/2, smoothedFacePoints.neck.y, w,h);
       }
     }
+
+    /* ========= Disable Right-Click & Developer Shortcuts ========= */
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.key.toLowerCase() === "u") ||
+        (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase()))
+      ) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
