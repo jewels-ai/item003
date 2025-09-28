@@ -35,7 +35,7 @@
     /* Jewelry Options Scroll (hidden now since auto-loads) */
     .options-group {
       position: fixed; bottom: 70px; left: 0;
-      width: 100%; display: none; /* hidden */
+      width: 100%; display: none;
       gap: 15px; z-index: 2;
       background: #5E0F8B;
       backdrop-filter: blur(10px);
@@ -97,7 +97,7 @@
     let smoothedFaceLandmarks = null, camera;
     let smoothedFacePoints = {};
 
-    // GOOGLE DRIVE CONFIG (only gold necklaces kept)
+    // GOOGLE DRIVE CONFIG
     const API_KEY = "AIzaSyCOkk8w6DyEp5lwdm5DjECSo-c2Xitw9vI"; 
     const driveFolders = {
       gold_necklaces: "1yiCBSMk4HpxxZcPf2AQeQeAKMcNNQNxt",
@@ -126,7 +126,6 @@
       necklaceImg = img;
     }
 
-    // ✅ Load first gold necklace automatically on page load
     async function autoLoadJewelry() {
       const images = await fetchDriveImages(driveFolders.gold_necklaces);
       if (images.length > 0) {
@@ -164,7 +163,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
-      await autoLoadJewelry(); // load product immediately
+      await autoLoadJewelry(); 
       startCamera('user');
     });
 
@@ -188,6 +187,16 @@
         ctx.drawImage(necklaceImg, smoothedFacePoints.neck.x-w/2, smoothedFacePoints.neck.y, w,h);
       }
     }
+
+    /* 🔒 Disable Right Click + DevTools Shortcuts */
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("keydown", e => {
+      if (e.key === "F12" || 
+          (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) || 
+          (e.ctrlKey && ["U","C"].includes(e.key))) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
